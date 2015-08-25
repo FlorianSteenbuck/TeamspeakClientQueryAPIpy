@@ -69,7 +69,7 @@ ts3clientquery.close()
 ```python
 def teamspeak_socket_init(clientquery_port=25639):
 ```
-This is a Function that initalize a local socket connection to the teamspeak client query and `gets` and `echo` the first 3 lines of the response.
+This is a Function that initalize a local socket connection to the teamspeak client query and `gets` and `print` the first 3 lines of the response.
 
 #### Parameters
 `clientquery_port`<br>
