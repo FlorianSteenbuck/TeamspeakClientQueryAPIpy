@@ -3,15 +3,17 @@ import socket
 import sys
 import string
 
-def fgets(socket,recv_bytes=2,deml='\n\r'):
+def an_write(pos,string,asci="_"):
+	return string[:pos]+asci
+def fgets(socket,recv_bytes=1,deml='\n'):
 	data = ''
 	while 1:
 		data += socket.recv(recv_bytes).decode('utf-8')
 		if deml in data:
-			data = data.split(deml)[0]
+			lines = data.split(deml)
+			data = lines[0]
 			break
 	return data
-
 def teamspeak_unescape(str):
 	return ((str.replace('↵', '\n')).replace('\\s', ' ')).replace('│', '|')
 def teamspeak_escape(str):
@@ -20,7 +22,7 @@ def get_teamspeak_param(name,teamspeakreturn):
 	if isinstance(name,int):
 		return teamspeakreturn.split(' ')[name].split('=')[1]
 	if name.isalpha():
-		value = NULL
+		value = None
 		args = teamspeakreturn.split(' ')
 		for arg in args:
 			keyval = arg.split('=')
@@ -29,12 +31,12 @@ def get_teamspeak_param(name,teamspeakreturn):
 				break
 		return value
 	else:
-		return NULL
+		return None
 def get_teamspeak_status(teamspeakreturn):
-	if teamspeakreturn[0:6] == '\rerror':
+	if teamspeakreturn[:6] == '\rerror':
 		return get_teamspeak_param(1,teamspeakreturn)
 	else:
-		return NULL
+		return None
 def teamspeak_socket_init(client_queryport=25639):
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect(('localhost', client_queryport))
@@ -54,4 +56,4 @@ def teamspeak_getname(sock):
 	name = teamspeak_unescape(get_teamspeak_param(1,tmp))
 	return name
 
-version='1'
+version='2'
