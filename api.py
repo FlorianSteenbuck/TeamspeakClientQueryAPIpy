@@ -15,9 +15,9 @@ def fgets(socket,recv_bytes=1,deml='\n'):
 			break
 	return data
 def teamspeak_unescape(str):
-	return ((str.replace('↵', '\n')).replace('\\s', ' ')).replace('│', '|')
+	return (((str.replace('↵', '\n')).replace('\\s', ' ')).replace('\\p', '|')).replace('\\/','/')
 def teamspeak_escape(str):
-	return ((str.replace('\n', '↵')).replace(' ', '\\s')).replace('|', '│')
+	return (((str.replace('\n', '↵')).replace(' ', '\\s')).replace('|', '\\p')).replace('/','\\/')
 def get_teamspeak_param(name,teamspeakreturn):
 	if isinstance(name,int):
 		return teamspeakreturn.split(' ')[name].split('=')[1]
